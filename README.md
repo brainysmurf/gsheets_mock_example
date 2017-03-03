@@ -13,7 +13,7 @@ Install and follow instructions:
 * https://www.npmjs.com/package/node-google-apps-script
 * https://github.com/mzagorny/gas-local
 * Authenticate with gapps
-* In the same directory as the cloned repo: gapps init <your script project id>
+* In the same directory as the cloned repo: gapps init "your script project id"
 
 Test (simply):
 * cd into "tests" folder
