@@ -1,29 +1,26 @@
 const localGass = require('gas-local');  // wrapper to calling GAS code from our local machine
 const assert = require('assert');  // sane assert statements for Google Apps yay!
-const sinon = require('sinon');
+const sinon = require('sinon');  // actually creates mocked objects
+
 
 function Range(data) {  // closure
 	return {
 		getValues: function() { return data; },
 		getLastRow: function() { return data.length; },
 		getLastColumn: function() { return data[0].length; },
-		getColumn: function() { return 1; },  // assume it's a very simple mocked sheet
+		getColumn: function() { return 1; },  // this assumes the range is in top-left corner of sheet
 	}
 }
 
 
-// This kind of mocking is not used for this example,
-// left for reference
-let defMock = localGass.globalMockDefault;
-let stubbedSpreadsheetApp =sinon.stub()
-let customMock = { 
-    SpreadsheetApp: {},
-     __proto__: defMock 
-  };
+// Used to extend mocked objects below,
+// This gives us the ability for NodeJs to output Logger.log as console.log
+let extendMocker = localGass.globalMockDefault;
 
-//pass it to require
-// TODO: Figure out how this actually works.
-let glib = localGass.require('../src', customMock);
+
+// localGass uses a sandbox concept to be able to load up Code.js
+let glib = localGass.require('../src', {});
+
 
 (function testGetRowsData() {
 	// Test all code paths and assumptions present in getRowsData
@@ -40,6 +37,7 @@ let glib = localGass.require('../src', customMock);
 
 	mockedSheet = {
 		getLastRow: sinon.stub().returns(1),
+		__proto__: extendMocker 
 	};
 	actual = glib.getRowsData(mockedSheet);
 	assert.deepEqual(actual, expected);
@@ -48,6 +46,7 @@ let glib = localGass.require('../src', customMock);
 		getLastRow: sinon.stub().returns(3),
 		getLastColumn: sinon.stub().returns(2),
 		getLastRow: sinon.stub().returns(2),
+	    __proto__: extendMocker,
 	};
 
 	mockedParams = {
@@ -72,6 +71,7 @@ let glib = localGass.require('../src', customMock);
 		getLastRow: sinon.stub().returns(3),
 		getLastColumn: sinon.stub().returns(2),
 		getRange: sinon.stub(),
+		__proto__: extendMocker 
 	};
 	mockedSheet.getRange.withArgs(2, 1, 2, 2).returns(mockedParams.dataRange);  // data
 	mockedSheet.getRange.withArgs(1, 1, 1, 2).returns(mockedParams.headersRange);  // headers
