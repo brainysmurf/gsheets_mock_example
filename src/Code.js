@@ -236,10 +236,11 @@ function getUpsertHeaders(sheet, optParams) {
  */
 function getRowsData(sheet, optParams) {
     var params = optParams || {};
-    if (sheet.getLastRow() < 2){
+    var headersIndex = params.columnHeadersRowIndex || 1;
+    if (sheet.getLastRow() < headersIndex + 1) {
         return [];
     }
-    var headersIndex = params.columnHeadersRowIndex || 1;
+
     var dataRange = params.dataRange ||
         sheet.getRange(headersIndex+1, 1, sheet.getLastRow() - headersIndex, sheet.getLastColumn());
     var numColumns = dataRange.getLastColumn() - dataRange.getColumn() + 1;
