@@ -1,0 +1,29 @@
+{
+  "name": "gsheetsutils_example_mocking",
+  "version": "1.0.0",
+  "description": "Proof of concept for modern toolchain for Google App Script",
+  "main": "Code.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "gas-local": "^1.1.0",
+    "jsmockito": "^1.0.5",
+    "mocka": "0.0.1",
+    "sinon": "^1.17.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brainysmurf/gsheets_mock_example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brainysmurf/gsheets_mock_example/issues"
+  },
+  "homepage": "https://github.com/brainysmurf/gsheets_mock_example#readme"
+}
