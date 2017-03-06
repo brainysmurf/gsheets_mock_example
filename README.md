@@ -31,7 +31,7 @@ Doing the following, you can download the source used for the Google Apps Script
 Deployment Setup:
 If your account can be used to push the changes to the cloud (to the actual standalone script)
 
-* Create and save a (new standalone script)['https://script.google.com'] with empty contents. Keep the package ID for below
+* Create and save a [new standalone script](https://script.google.com) with empty contents. Keep the package ID for below
 * Authenticate with [gapps](https://www.npmjs.com/package/node-google-apps-script) with the user that created the script document above. 
 * In the same directory as the cloned repo: `gapps init "your script project id from above"` If you get script ID error, it may be due to lack of permissions on the script (which happened to me while I was juggling between two accounts). If you need more than one attempt at `gapps init`, you can safely `rm -r src` directory and `rm gas.package.json` file.
 * Copy the contents of the /dev folder into /src folder (or manually delete /src contents and use a symlink)
